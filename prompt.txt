@@ -1,0 +1,102 @@
+Goal:
+I have a DOCX file that contains a table with 4 columns structured as:
+
+1. Questions
+
+
+2. Sample (for reference only)
+
+
+3. Answers
+
+
+4. Comments v3
+
+
+
+Inside the table, multiple rows exist.
+I need to extract values from a JSON file (aots_information_tab.json) and put them in the correct Answers column based on the Questions column.
+
+
+---
+
+What the script must do:
+
+1. Open the DOCX file and locate the table.
+
+
+2. For each row:
+
+Read the value in Column 1 (Questions).
+
+If Column 1 contains the specific keyword “AOTS” (example: Application Name (AOTS ID), AOTS CR, etc.)
+
+
+
+3. For that row, go to Column 3 (Answers) and fill it with the correct JSON data fields.
+
+
+4. JSON file structure example is like:
+
+
+
+{
+  "Information": {
+      "CR": "CHG000010532615",
+      "Summary": "",
+      ...
+  },
+  "Assessment": {
+      "Planned Start Date": "...",
+      "Planned End Date": "...",
+      ...
+  }
+}
+
+5. For each AOTS-related question:
+
+If Question mentions CR, fill the Answer cell with JSON["Information"]["CR"]
+
+If Question mentions Planned Start Date (CT), fill the Answer with JSON["Assessment"]["Planned Start Date"]
+
+If Question mentions Planned End Date (CT), fill the Answer with JSON["Assessment"]["Planned End Date"]
+
+Continue this mapping for all other rows.
+
+
+
+6. Rewrite the modified DOCX and save it.
+
+
+
+
+---
+
+Output code requirements:
+
+Use python-docx to read/write DOCX tables.
+
+Load the JSON using built-in json module.
+
+Create a function fill_doc_from_json(doc_path, json_path, output_path).
+
+Code must:
+
+iterate rows safely,
+
+trim whitespace,
+
+handle missing fields gracefully.
+
+
+
+
+---
+
+Deliverables Copilot must generate:
+
+A fully working Python script (scrape_aots.py)
+
+Clean, readable, documented code
+
+No placeholders — real working mapping logic
